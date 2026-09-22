@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
+
 import profileImage from "./assets/profile/nimsara-hero.png";
+import wanderlyImage from "./assets/projects/wanderly.png";
 import shopeaseImage from "./assets/projects/shopease.png";
-import studentManagementImage from "./assets/projects/student-management.png";
 import devopsApiImage from "./assets/projects/devops-api.png";
 import emotoringImage from "./assets/projects/emotoring.png";
+import studentManagementImage from "./assets/projects/student-management.png";
+
 import "./index.css";
 
 function App() {
@@ -14,10 +17,21 @@ function App() {
   const [formStatus, setFormStatus] = useState("");
 
   useEffect(() => {
-  document.body.classList.toggle("dark-mode", darkMode);
-}, [darkMode]);
+    document.body.classList.toggle("dark-mode", darkMode);
+  }, [darkMode]);
 
   const projects = [
+    {
+      type: "UI/UX & FRONTEND",
+      title: "Wanderly",
+      description:
+        "A cinematic South Asia travel experience focused on immersive UI/UX, visual storytelling, animations and responsive frontend design.",
+      image: wanderlyImage,
+      technologies: ["React", "Vite", "CSS", "Motion"],
+      github: "https://github.com/pathumnimsara/wanderly",
+      live: "https://wanderly-6333.vercel.app/",
+    },
+
     {
       type: "FULL-STACK",
       title: "ShopEase",
@@ -26,18 +40,9 @@ function App() {
       image: shopeaseImage,
       technologies: ["React", "Node.js", "MongoDB"],
       github: "https://github.com/pathumnimsara/ecommerce-web",
-      live: "#"
+      live: "#",
     },
-    {
-      type: "DESKTOP APPLICATION",
-      title: "Student Management System",
-      description:
-        "A JavaFX desktop application for managing student records with CRUD operations and MySQL database integration.",
-      image: studentManagementImage,
-      technologies: ["Java", "JavaFX", "MySQL"],
-      github: "https://github.com/pathumnimsara/Student-Management-System",
-      live: "#"
-    },
+
     {
       type: "DEVOPS",
       title: "Student API",
@@ -46,8 +51,9 @@ function App() {
       image: devopsApiImage,
       technologies: ["Node.js", "Docker", "MongoDB"],
       github: "https://github.com/pathumnimsara/devops-student-api",
-      live: "#"
+      live: "#",
     },
+
     {
       type: "UNIVERSITY PROJECT",
       title: "e-Motoring",
@@ -56,38 +62,49 @@ function App() {
       image: emotoringImage,
       technologies: ["React", "Node.js", "Firebase"],
       github: "#",
-      live: "#"
-    }
+      live: "#",
+    },
+
+    {
+      type: "DESKTOP APPLICATION",
+      title: "Student Management System",
+      description:
+        "A JavaFX desktop application for managing student records with CRUD operations and MySQL database integration.",
+      image: studentManagementImage,
+      technologies: ["Java", "JavaFX", "MySQL"],
+      github: "https://github.com/pathumnimsara/Student-Management-System",
+      live: "#",
+    },
   ];
 
   /* Contact Form */
 
-const handleSubmit = async (event) => {
-  event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const form = event.currentTarget;
+    const form = event.currentTarget;
 
-  setFormStatus("Sending...");
+    setFormStatus("Sending...");
 
-  try {
-    const response = await emailjs.sendForm(
-      "service_wgkn3vg",
-      "template_81ntqoe",
-      form,
-      "2CVmBnU1MALO5ZvTT"
-    );
+    try {
+      const response = await emailjs.sendForm(
+        "service_wgkn3vg",
+        "template_81ntqoe",
+        form,
+        "2CVmBnU1MALO5ZvTT"
+      );
 
-    if (response.status === 200) {
-      form.reset();
-      setFormStatus("Message sent successfully.");
-    } else {
-      setFormStatus("Message could not be sent.");
+      if (response.status === 200) {
+        form.reset();
+        setFormStatus("Message sent successfully.");
+      } else {
+        setFormStatus("Message could not be sent.");
+      }
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setFormStatus("Message could not be sent. Please try again.");
     }
-  } catch (error) {
-    console.error("EmailJS Error:", error);
-    setFormStatus("Message could not be sent. Please try again.");
-  }
-};
+  };
 
   return (
     <>
@@ -97,12 +114,12 @@ const handleSubmit = async (event) => {
         <div className="logo">NIMSARA</div>
 
         <button
-  className="theme-toggle"
-  onClick={() => setDarkMode(!darkMode)}
-  aria-label="Toggle dark mode"
->
-  {darkMode ? "☀" : "☾"}
-</button>
+          className="theme-toggle"
+          onClick={() => setDarkMode(!darkMode)}
+          aria-label="Toggle dark mode"
+        >
+          {darkMode ? "☀" : "☾"}
+        </button>
 
         <button
           className="menu-toggle"
@@ -116,15 +133,19 @@ const handleSubmit = async (event) => {
           <a href="#home" onClick={() => setMenuOpen(false)}>
             Home
           </a>
+
           <a href="#about" onClick={() => setMenuOpen(false)}>
             About
           </a>
+
           <a href="#skills" onClick={() => setMenuOpen(false)}>
             Skills
           </a>
+
           <a href="#projects" onClick={() => setMenuOpen(false)}>
             Projects
           </a>
+
           <a href="#contact" onClick={() => setMenuOpen(false)}>
             Contact
           </a>
@@ -175,8 +196,8 @@ const handleSubmit = async (event) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.45 }}
             >
-              I build modern web applications and explore DevOps practices to automate, 
-              deploy and improve reliable software systems.
+              I build modern web applications and explore DevOps practices to
+              automate, deploy and improve reliable software systems.
             </motion.p>
 
             <motion.div
@@ -195,15 +216,17 @@ const handleSubmit = async (event) => {
                 <span className="btn-arrow">↗</span>
               </a>
             </motion.div>
-
-            
           </motion.div>
 
           <motion.div
             className="hero-photo-wrapper"
             initial={{ opacity: 0, scale: 0.94, x: 40 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+            transition={{
+              duration: 1,
+              delay: 0.2,
+              ease: "easeOut",
+            }}
           >
             <div className="hero-photo-frame">
               <img
@@ -242,43 +265,41 @@ const handleSubmit = async (event) => {
             <p>01 / ABOUT</p>
             <h2>About Me</h2>
 
-        
-        <div className="about-highlight card_container">
-  <div className="card_hover">
-    <div className="part part-1"></div>
-    <div className="part part-2"></div>
-    <div className="part part-3"></div>
-    <div className="part part-4"></div>
-    <div className="part part-5"></div>
-    <div className="part part-6"></div>
-    <div className="part part-7"></div>
-    <div className="part part-8"></div>
-    <div className="part part-9"></div>
-    <div className="part part-10"></div>
-    <div className="part part-11"></div>
-    <div className="part part-12"></div>
-    <div className="part part-13"></div>
-    <div className="part part-14"></div>
-    <div className="part part-15"></div>
-  </div>
+            <div className="about-highlight card_container">
+              <div className="card_hover">
+                <div className="part part-1"></div>
+                <div className="part part-2"></div>
+                <div className="part part-3"></div>
+                <div className="part part-4"></div>
+                <div className="part part-5"></div>
+                <div className="part part-6"></div>
+                <div className="part part-7"></div>
+                <div className="part part-8"></div>
+                <div className="part part-9"></div>
+                <div className="part part-10"></div>
+                <div className="part part-11"></div>
+                <div className="part part-12"></div>
+                <div className="part part-13"></div>
+                <div className="part part-14"></div>
+                <div className="part part-15"></div>
+              </div>
 
-  <div className="about-highlight-card">
-    <span className="about-highlight-number"></span>
+              <div className="about-highlight-card">
+                <span className="about-highlight-number"></span>
 
-    <div className="about-highlight-line"></div>
+                <div className="about-highlight-line"></div>
 
-    <h3>
-      BUILD.
-      <br />
-      DEPLOY.
-      <br />
-      IMPROVE.
-    </h3>
+                <h3>
+                  BUILD.
+                  <br />
+                  DEPLOY.
+                  <br />
+                  IMPROVE.
+                </h3>
 
-    <p>FULL-STACK DEVELOPMENT × DEVOPS</p>
-  </div>
-</div>
-
+                <p>FULL-STACK DEVELOPMENT × DEVOPS</p>
+              </div>
+            </div>
           </motion.div>
 
           <motion.div
@@ -301,8 +322,8 @@ const handleSubmit = async (event) => {
             </p>
 
             <p>
-              My goal is to create reliable applications with clean interfaces,
-              maintainable code and a good user experience.
+              My goal is to create reliable applications with clean
+              interfaces, maintainable code and a good user experience.
             </p>
 
             <a href="#contact" className="about-btn">
@@ -310,8 +331,6 @@ const handleSubmit = async (event) => {
             </a>
           </motion.div>
         </div>
-       
-  
       </section>
 
       {/* Skills */}
@@ -333,28 +352,28 @@ const handleSubmit = async (event) => {
             {[
               {
                 title: "Frontend Development",
-                text: "React, JavaScript, HTML, CSS and responsive user interface development."
+                text: "React, JavaScript, HTML, CSS and responsive user interface development.",
               },
               {
                 title: "Backend Development",
-                text: "Node.js, Express.js, REST APIs and server-side application development."
+                text: "Node.js, Express.js, REST APIs and server-side application development.",
               },
               {
                 title: "Database",
-                text: "MongoDB, MySQL and Firebase for application data and storage."
+                text: "MongoDB, MySQL and Firebase for application data and storage.",
               },
               {
                 title: "Programming",
-                text: "JavaScript and Java with object-oriented programming and application development."
+                text: "JavaScript and Java with object-oriented programming and application development.",
               },
               {
                 title: "DevOps",
-                text: "Docker, Git, GitHub Actions, CI/CD and containerized application workflows."
+                text: "Docker, Git, GitHub Actions, CI/CD and containerized application workflows.",
               },
               {
                 title: "Tools",
-                text: "VS Code, IntelliJ IDEA, GitHub, Postman and modern development tools."
-              }
+                text: "VS Code, IntelliJ IDEA, GitHub, Postman and modern development tools.",
+              },
             ].map((skill, index) => (
               <motion.div
                 className="skill-card"
@@ -364,7 +383,7 @@ const handleSubmit = async (event) => {
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{
                   duration: 0.5,
-                  delay: index * 0.08
+                  delay: index * 0.08,
                 }}
               >
                 <h3>{skill.title}</h3>
@@ -400,7 +419,7 @@ const handleSubmit = async (event) => {
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{
                   duration: 0.6,
-                  delay: index * 0.1
+                  delay: index * 0.1,
                 }}
               >
                 <img
@@ -424,25 +443,25 @@ const handleSubmit = async (event) => {
 
                   <div className="project-links">
                     {project.github !== "#" && (
-                     <a
-  href={project.github}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="github-btn"
->
-  <svg
-    viewBox="0 0 24 24"
-    height="18"
-    width="18"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      fill="currentColor"
-      d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-    />
-  </svg>
-  GitHub
-</a>
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="github-btn"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          height="18"
+                          width="18"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                          />
+                        </svg>
+                        GitHub
+                      </a>
                     )}
 
                     {project.live !== "#" && (
@@ -548,55 +567,67 @@ const handleSubmit = async (event) => {
             <p>05 / SERVICES</p>
             <h2>What I Can Build</h2>
           </motion.div>
-            <motion.div
-  className="services-grid"
-  initial={{ opacity: 0, y: 30 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.6 }}
->
-  <div className="service-card">
-    <span className="service-number">01</span>
-    <div className="service-content">
-      <h3>Web Development</h3>
-      <p>
-        Modern and responsive websites built with clean and scalable code.
-      </p>
-    </div>
-  </div>
 
-  <div className="service-card">
-    <span className="service-number">02</span>
-    <div className="service-content">
-      <h3>Full-Stack Development</h3>
-      <p>
-        Complete web applications with frontend, backend and database integration.
-      </p>
-    </div>
-  </div>
+          <motion.div
+            className="services-grid"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="service-card">
+              <span className="service-number">01</span>
 
-  <div className="service-card">
-    <span className="service-number">03</span>
-    <div className="service-content">
-      <h3>API Development</h3>
-      <p>
-        REST APIs with secure backend architecture and database connectivity.
-      </p>
-    </div>
-  </div>
+              <div className="service-content">
+                <h3>Web Development</h3>
 
-  <div className="service-card">
-    <span className="service-number">04</span>
-    <div className="service-content">
-      <h3>DevOps & Deployment</h3>
-      <p>
-        Containerized applications, CI/CD pipelines and deployment workflows.
-      </p>
-    </div>
-  </div>
-</motion.div>
-          
-               </div>
+                <p>
+                  Modern and responsive websites built with clean and scalable
+                  code.
+                </p>
+              </div>
+            </div>
+
+            <div className="service-card">
+              <span className="service-number">02</span>
+
+              <div className="service-content">
+                <h3>Full-Stack Development</h3>
+
+                <p>
+                  Complete web applications with frontend, backend and
+                  database integration.
+                </p>
+              </div>
+            </div>
+
+            <div className="service-card">
+              <span className="service-number">03</span>
+
+              <div className="service-content">
+                <h3>API Development</h3>
+
+                <p>
+                  REST APIs with secure backend architecture and database
+                  connectivity.
+                </p>
+              </div>
+            </div>
+
+            <div className="service-card">
+              <span className="service-number">04</span>
+
+              <div className="service-content">
+                <h3>DevOps & Deployment</h3>
+
+                <p>
+                  Containerized applications, CI/CD pipelines and deployment
+                  workflows.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       {/* Contact */}
@@ -708,15 +739,19 @@ const handleSubmit = async (event) => {
               <li>
                 <a href="#home">Home</a>
               </li>
+
               <li>
                 <a href="#about">About</a>
               </li>
+
               <li>
                 <a href="#skills">Skills</a>
               </li>
+
               <li>
                 <a href="#projects">Projects</a>
               </li>
+
               <li>
                 <a href="#contact">Contact</a>
               </li>
@@ -754,14 +789,15 @@ const handleSubmit = async (event) => {
 
             <div className="footer-contact-item">
               <span>Email</span>
+
               <a href="mailto:pathumnimesh253@gmail.com">
                 pathumnimesh253@gmail.com
               </a>
             </div>
 
             <div className="footer-contact-item">
-
               <span>Whatsapp</span>
+
               <p>070 2531979</p>
             </div>
           </div>
@@ -787,6 +823,7 @@ const handleSubmit = async (event) => {
 
         <div className="footer-bottom">
           <p>© 2026 Pathum Nimesh Nimsara. All rights reserved.</p>
+
           <p>Built with React & Framer Motion.</p>
         </div>
       </footer>
