@@ -4,7 +4,7 @@ A modern and responsive personal portfolio website built to showcase my skills, 
 
 ## 🌐 Live Website
 
-Coming soon
+https://nimsara-portfolio-lac.vercel.app/
 
 ## About
 
